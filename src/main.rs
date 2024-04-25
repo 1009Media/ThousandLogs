@@ -22,8 +22,28 @@ fn get_metadata(path: &str) -> Result<Vec<(String, f64, f64)>, Box<dyn Error>> {
     // Sort files by creation time
     let mut video_metadata = Vec::new();
     for file in video_files {
-        let file = file?;
-        let file_path = file.to_str().ok_or("Invalid file path")?.to_string();
+        let file_path = match file {
+            Ok(path) => path,
+            Err(e) => {
+                eprintln!("Error accessing file: {}", e);
+                continue; // Skip to the next file
+            }
+        };
+
+        // Skip files with names starting with a dot
+        let file_name = match file_path.file_name() {
+            Some(name) => name.to_string_lossy(),
+            None => {
+                eprintln!("Error accessing file name for {:?}", file_path);
+                continue; // Skip to the next file
+            }
+        };
+        if file_name.starts_with(".") {
+            println!("Skipping hidden video file as it is likely a Linux or MacOS system file and not a real rush.");
+            continue; // Skip to the next file
+        }
+
+        let file_path_str = file_path.to_str().ok_or("Invalid file path")?.to_string();
 
         // get video metadata
         let fps_output = Command::new("ffprobe")
@@ -35,9 +55,23 @@ fn get_metadata(path: &str) -> Result<Vec<(String, f64, f64)>, Box<dyn Error>> {
             .arg("default=noprint_wrappers=1:nokey=1")
             .arg("-show_entries")
             .arg("stream=r_frame_rate")
-            .arg(&file_path)
-            .output()?;
-        let fps_string = String::from_utf8_lossy(&fps_output.stdout).trim().to_string();
+            .arg(&file_path_str)
+            .output();
+
+        let fps_string = match fps_output {
+            Ok(output) => String::from_utf8_lossy(&output.stdout).trim().to_string(),
+            Err(e) => {
+                eprintln!("Error getting FPS for {}: {}", &file_path_str, e);
+                continue; // Skip to the next file
+            }
+        };
+
+        if fps_string.is_empty() {
+            eprintln!("Empty FPS string for {}", &file_path_str);
+            continue; // Skip to the next file
+        }
+
+        println!("FPS String for {}: {}", &file_path_str, &fps_string);
         let fps: f64 = parse_fps(&fps_string)?;
 
         let duration_output = Command::new("ffprobe")
@@ -54,13 +88,13 @@ fn get_metadata(path: &str) -> Result<Vec<(String, f64, f64)>, Box<dyn Error>> {
         let duration_string = String::from_utf8_lossy(&duration_output.stdout).trim().to_string();
         let duration: f64 = parse_duration(&duration_string)?;
 
-        video_metadata.push((file_path, fps, duration));
+        video_metadata.push((file_path.to_string_lossy().to_string(), fps, duration));
+
     }
 
     Ok(video_metadata)
 }
 
-// function to parse FPS from string
 fn parse_fps(fps_string: &str) -> Result<f64, Box<dyn Error>> {
     let fps_parts: Vec<&str> = fps_string.split('/').collect();
     match fps_parts.len() {
@@ -69,7 +103,11 @@ fn parse_fps(fps_string: &str) -> Result<f64, Box<dyn Error>> {
             let denominator: f64 = fps_parts[1].trim().parse()?;
             Ok(numerator / denominator)
         }
-        _ => Err("Invalid FPS format".into()),
+        _ => {
+            // Print the FPS string for debugging
+            println!("Unexpected FPS format: {}", fps_string);
+            Err("Invalid FPS format".into())
+        }
     }
 }
 
@@ -115,7 +153,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     println!("{}", ascii_logo);
 
     // display version number
-    println!("Version 2.0.0\n");
+    println!("Version 2.0.1\n");
 
     // get folder path from user input
     print!("Enter folder path: ");
