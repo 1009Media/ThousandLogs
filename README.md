@@ -10,6 +10,7 @@ Windows (64 bit):
 - Download `autotclog-rs-X.X.X-win64.exe` from the releases page, and double click it.
 
 MacOS (Apple Silicon):
+NOTE ON MACOS VERSION: MacOS is having weird permission issues and I can't figure out how to make the program actually read folders cause MacOS won't let it.
 - Download `autotclog-rs-X.X.X-macos-applesilicon` from the releases page, and double click it.
 
 Linux (64 bit):
