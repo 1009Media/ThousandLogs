@@ -4,20 +4,29 @@ Writing timecode logs manually is tedious and time consuming. AutoTCLog gets the
 This is a Rust port of a program I originally wrote in Python, from now on the old Python version is deprecated, and this is the one I'll update. The old Python code is available [here](https://github.com/sykesgabri/AutoTCLog).
 
 ## How to install:
+**VERY IMPORTANT NOTE THAT MY DUMBASS FORGOT TO ADD IN THE INITIAL COMMIT**
+FFmpeg must be installed in order for this program to work. The program currently does not tell you there's something wrong if FFmpeg is not installed, I will fix this in the future. Instructions for installing FFmpeg are below.
+
 Precompiled binaries for 64 bit Windows, MacOS on Apple Silicon, and 64 bit Linux, are available in this repo's [releases](https://github.com/sykesgabri/AutoTCLog-RS/releases). Here's how to run them on each OS:
 
 Windows (64 bit):
+- Download the latest `ffmpeg-release-full` build from [here](https://www.gyan.dev/ffmpeg/builds).
+- Extract the file using WinRAR or 7zip.
+- Add the contents of the `bin` folder to your system's PATH environment variable, or just copy them all to `C:\Windows`.
 - Download `autotclog-rs-X_X_X-windows.exe` from the releases page, and double click it.
 - If Windows Defender gives you a warning prompt, click `more information` and `Run Anyway`.
 
 MacOS (Apple Silicon):
-NOTE ON MACOS VERSION: MacOS is having weird permission issues and I can't figure out how to make the program actually read folders cause MacOS won't let it.
+**NOTE ON MACOS VERSION: MacOS is having weird permission issues and I can't figure out how to make the program actually read folders cause MacOS won't let it.**
+- Install Homebrew by following the instructions [here](https://brew.sh).
+- Open a terminal and type `brew install ffmpeg`.
 - Download `autotclog-rs-X_X_X-macos` from the releases page.
 - Open a terminal and cd to the directory where you downloaded the program.
 - Type `sudo chmod +x autotclog-rs-X_X_X-macos` to make the program executable.
 - Type `./autotclog-rs-X_X_X-macos` to run the program.
 
 Linux (64 bit):
+- Install the ffmpeg package with your distro's package manager.
 - Download `autotclog-rs-X_X_X-linux` from the releases page.
 - Open a terminal and cd to the directory where you downloaded the program.
 - Type `sudo chmod +x autotclog-rs-X_X_X-linux` to make the program executable.
