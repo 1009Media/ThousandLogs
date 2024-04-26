@@ -7,16 +7,21 @@ This is a Rust port of a program I originally wrote in Python, from now on the o
 Precompiled binaries for 64 bit Windows, MacOS on Apple Silicon, and 64 bit Linux, are available in this repo's [releases](https://github.com/sykesgabri/AutoTCLog-RS/releases). Here's how to run them on each OS:
 
 Windows (64 bit):
-- Download `autotclog-rs-X.X.X-win64.exe` from the releases page, and double click it.
+- Download `autotclog-rs-X_X_X-windows.exe` from the releases page, and double click it.
+- If Windows Defender gives you a warning prompt, click `more information` and `Run Anyway`.
 
 MacOS (Apple Silicon):
 NOTE ON MACOS VERSION: MacOS is having weird permission issues and I can't figure out how to make the program actually read folders cause MacOS won't let it.
-- Download `autotclog-rs-X.X.X-macos-applesilicon` from the releases page, and double click it.
+- Download `autotclog-rs-X_X_X-macos` from the releases page.
+- Open a terminal and cd to the directory where you downloaded the program.
+- Type `sudo chmod +x autotclog-rs-X_X_X-macos` to make the program executable.
+- Type `./autotclog-rs-X_X_X-macos` to run the program.
 
 Linux (64 bit):
-- Download `autotclog-rs-X.X.X-linux` from the releases page.
+- Download `autotclog-rs-X_X_X-linux` from the releases page.
 - Open a terminal and cd to the directory where you downloaded the program.
-- Type `./autotclog-rs-X.X.X-linux` to run the program.
+- Type `sudo chmod +x autotclog-rs-X_X_X-linux` to make the program executable.
+- Type `./autotclog-rs-X_X_X-linux` to run the program.
 
 ## Building from source:
 If you need the program on a platform not in the releases, such as 32 bit Windows or an Intel Mac, follow these instructions:
