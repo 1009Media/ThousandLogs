@@ -4,12 +4,13 @@ Writing timecode logs manually is tedious and time consuming. AutoTCLog gets the
 This is a Rust port of a program I originally wrote in Python, from now on the old Python version is deprecated, and this is the one I'll update. The old Python code is available [here](https://github.com/sykesgabri/AutoTCLog).
 
 ## How to install:
-**VERY IMPORTANT NOTE THAT MY DUMBASS FORGOT TO ADD IN THE INITIAL COMMIT**
-FFmpeg must be installed in order for this program to work. The program currently does not tell you there's something wrong if FFmpeg is not installed, I will fix this in the future. Instructions for installing FFmpeg are below.
+
+**IMPORTANT:** Do not skip the steps to install FFmpeg, this program will not work without it.
 
 Precompiled binaries for 64 bit Windows, MacOS on Apple Silicon, and 64 bit Linux, are available in this repo's [releases](https://github.com/sykesgabri/AutoTCLog-RS/releases). Here's how to run them on each OS:
 
 Windows (64 bit):
+
 - Download the latest `ffmpeg-release-full` build from [here](https://www.gyan.dev/ffmpeg/builds).
 - Extract the file using WinRAR or 7zip.
 - Add the contents of the `bin` folder to your system's PATH environment variable, or just copy them all to `C:\Windows`.
@@ -17,7 +18,7 @@ Windows (64 bit):
 - If Windows Defender gives you a warning prompt, click `more information` and `Run Anyway`.
 
 MacOS (Apple Silicon):
-**NOTE ON MACOS VERSION: MacOS is having weird permission issues and I can't figure out how to make the program actually read folders cause MacOS won't let it.**
+
 - Install Homebrew by following the instructions [here](https://brew.sh).
 - Open a terminal and type `brew install ffmpeg`.
 - Download `autotclog-rs-X_X_X-macos` from the releases page.
@@ -26,6 +27,7 @@ MacOS (Apple Silicon):
 - Type `./autotclog-rs-X_X_X-macos` to run the program.
 
 Linux (64 bit):
+
 - Install the ffmpeg package with your distro's package manager.
 - Download `autotclog-rs-X_X_X-linux` from the releases page.
 - Open a terminal and cd to the directory where you downloaded the program.
@@ -33,7 +35,9 @@ Linux (64 bit):
 - Type `./autotclog-rs-X_X_X-linux` to run the program.
 
 ## Building from source:
+
 If you need the program on a platform not in the releases, such as 32 bit Windows or an Intel Mac, follow these instructions:
+
 - On the same device that you want to run the program on, install rustup by following the instructions found [here](https://www.rust-lang.org/tools/install).
 - Install git from [here](https://git-scm.com/downloads).
 - Open a terminal or command prompt and type `git clone https://github.com/sykesgabri/AutoTCLog-RS`.

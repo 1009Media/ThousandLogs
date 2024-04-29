@@ -7,6 +7,14 @@ use glob::glob;
 use regex::Regex;
 use xlsxwriter::*;
 
+// function to check if ffprobe command works
+fn check_ffprobe() -> bool {
+    match Command::new("ffprobe").arg("-version").output() {
+        Ok(output) => output.status.success(),
+        Err(_) => false,
+    }
+}
+
 // function to get video metadata
 fn get_metadata(path: &str) -> Result<Vec<(String, f64, f64)>, Box<dyn Error>> {
     // scan for video files
@@ -153,7 +161,17 @@ fn main() -> Result<(), Box<dyn Error>> {
     println!("{}", ascii_logo);
 
     // display version number
-    println!("Version 2.0.1\n");
+    println!("Version 2.0.2\n");
+
+    // check if ffprobe works, and prompt user to install ffmpeg if it doesn't
+    if !check_ffprobe() {
+        println!("FFmpeg is either not installed, or not in your PATH.");
+        println!("AutoTCLog-RS uses FFprobe, a part of FFmpeg, to get the video metadata needed to generate the log.");
+        println!("Instructions for installing FFmpeg on Windows, MacOS, and Linux, are in the Github repo's README:");
+        println!("https://github.com/sykesgabri/AutoTCLog-RS/blob/main/README.md");
+        println!("Exiting program.");
+        std::process::exit(1);
+    }
 
     // get folder path from user input
     print!("Enter folder path: ");
