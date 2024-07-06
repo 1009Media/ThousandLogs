@@ -10,19 +10,37 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,200;0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome 4.7 (because 5 requires an account) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <div class="container">
         <h1>AutoTCLog-RS</h1>
-        <h2>3.0.0</h2>
+        <h2>3.0.1</h2>
+        <div id="warning-message" class="warning-message" style="display: none;">
+            <p>
+              FFmpeg is either not installed or not in your PATH. AutoTCLog-RS depends on FFmpeg to function.<br>
+              Instructions for installing FFmpeg on Windows, macOS, and Linux, can be found <a href="https://github.com/1009Media/AutoTCLog-RS/wiki/Setting-up-AutoTCLog%E2%80%90RS-for-the-first-time.#how-to-install-ffmpeg" target="_blank">here</a>.<br>
+              After you have installed FFmpeg, restart AutoTCLog-RS.
+            </p>
+        </div>
         <form id="metadata-form">
-            <label for="folder-path">Enter rushes folder path:</label>
-            <input type="text" id="folder-path" name="folder-path" required>
+            <label for="folder-path">Enter rushes folder path (or click folder to browse files):</label>
+            <div class="input-group">
+                <input type="text" id="folder-path" name="folder-path" required>
+                <button type="button" id="browse-button"><i class="fa fa-folder fa-lg fa-fw"></i></button>
+            </div>
             <br>
             <label for="start-timecode">Enter start timecode (HH:MM:SS:FF):</label>
             <input type="text" id="start-timecode" name="start-timecode" value="00:00:00:00">
             <br>
-            <label for="output-file">Enter output log name (excluding extension):</label>
+            <label for="output-file">
+              <center>
+                Enter output log name (excluding extension)<br>
+                (log will be saved in rushes folder):
+              </center>
+            </label>
             <input type="text" id="output-file" name="output-file" required>
             <br>
             <button type="submit">Generate TC Log</button>
@@ -30,6 +48,7 @@
         <p>Progress Log:</p>
         <div id="message-box" class="message-box"></div>
         <p id="output"></p>
+        <p>Part of the ThousandNine Standard Library - Licensed under the GNU LGPL 2.1</p>
     </div>
     <script src="main.js"></script>
 </body>

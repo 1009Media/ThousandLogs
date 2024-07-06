@@ -7,29 +7,25 @@ This is a Rust port of a program Gabriel Sykes originally wrote in Python, from 
 
 **IMPORTANT:** Do not skip the steps to install FFmpeg, this program will not work without it.
 
-Precompiled portable binaries for 64 bit Windows, MacOS on Apple Silicon, and 64 bit Linux, are available in this repo's [releases](https://github.com/sykesgabri/AutoTCLog-RS/releases). Here's how to run them on each OS:
+Precompiled portable binaries for 64 bit Windows, MacOS on Apple Silicon, and 64 bit Linux, are available in this repo's [releases](https://github.com/sykesgabri/AutoTCLog-RS/releases). Here's direct links to the downloads, and how to run them on each OS:
 
-Windows (64 bit):
+| Platform                    | x86_64 Windows (10+)                                                                                                                                 | Apple Silicon macOS                                                                                                                                      | x86_64 Linux                                                                                                                             |
+|-----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| **FFmpeg Instructions**     | Download [`ffmpeg-release-full`](https://www.gyan.dev/ffmpeg/builds)<br>Extract using WinRar or 7zip<br>Copy contents of `bin` folder to C:\Windows  | Install [Homebrew](https://brew.sh)<br>Open a terminal and type `brew install ffmpeg`                                                                    | Install the `ffmpeg` package with your distro's package manager.                                                                         |
+| **AutoTCLog-RS Executable** | [AutoTCLog-RS-3_0_1-Windows-PORTABLE.exe](https://github.com/1009Media/AutoTCLog-RS/releases/download/3.0.1/autotclog-rs-3_0_1-windows-PORTABLE.exe) | [AutoTCLog-RS-3_0_1-macOS-PORTABLE.app.zip](https://github.com/1009Media/AutoTCLog-RS/releases/download/3.0.1/autotclog-rs-3_0_1-macOS-PORTABLE.app.zip) | [AutoTCLog-RS-3_0_1-Linux-PORTABLE](https://github.com/1009Media/AutoTCLog-RS/releases/download/3.0.1/autotclog-rs-3_0_1-Linux-PORTABLE) |
 
-- Download the latest `ffmpeg-release-full` build from [here](https://www.gyan.dev/ffmpeg/builds).
-- Extract the file using WinRAR or 7zip.
-- Add the contents of the `bin` folder to your system's PATH environment variable, or just copy them all to `C:\Windows`.
-- Download `autotclog-rs-X_X_X-windows-PORTABLE.exe` from the releases page, and double click it.
-- If Windows Defender gives you a warning prompt, click `more information` and `Run Anyway`.
+### Special considerations:
 
-MacOS (Apple Silicon):
+**Windows:**
 
-- Install Homebrew by following the instructions [here](https://brew.sh).
-- Open a terminal and type `brew install ffmpeg`.
-- Download `autotclog-rs-X_X_X-macos-PORTABLE.app.zip` from the releases page.
-- Unzip the downloaded file.
-- Double click `autotclog-rs-X_X_X-macos-PORTABLE.app`.
-- You'll probably get a warning about an untrusted developer, forcing you to go into privacy settings to allow the program to run, [this is Apple trying to extort developers by making them pay to remove this message](https://developer.apple.com/support/compare-memberships/), fuck the cunts.
+- If Windows Defender gives you a warning prompt, click `More Info` then `Run Anyway`.
 
-Linux (64 bit):
+**macOS:**
 
-- Install the ffmpeg package with your distro's package manager.
-- Download `autotclog-rs-X_X_X-linux-PORTABLE` from the releases page.
+- You'll get a warning about an untrusted developer, forcing you to go into privacy settings to allow the program to run, [if I wanted to prevent this from happening, I would have to pay Apple](https://developer.apple.com/support/compare-memberships/).
+
+**Linux:**
+
 - Open a terminal and cd to the directory where you downloaded the program.
 - Type `sudo chmod +x autotclog-rs-X_X_X-linux-PORTABLE` to make the program executable.
 - Type `./autotclog-rs-X_X_X-linux-PORTABLE` to run the program.

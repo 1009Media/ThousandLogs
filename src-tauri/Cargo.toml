@@ -1,6 +1,6 @@
 [package]
 name = "autotclog-rs"
-version = "3.0.0"
+version = "3.0.1"
 description = "Writing TC logs is tedious and boring, speed up the process with AutoTCLog-RS."
 authors = ["Gabriel Sykes"]
 edition = "2021"
@@ -11,7 +11,7 @@ edition = "2021"
 tauri-build = { version = "1", features = [] }
 
 [dependencies]
-tauri = { version = "1", features = ["shell-open"] }
+tauri = { version = "1", features = [ "dialog-all", "shell-open"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 glob = "0.3.1"
