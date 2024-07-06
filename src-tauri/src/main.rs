@@ -13,6 +13,7 @@ use regex::Regex;
 use xlsxwriter::*;
 use tauri::{generate_handler, Builder, Manager};
 
+#[tauri::command]
 fn check_ffprobe() -> bool {
     match Command::new("ffprobe").arg("-version").output() {
         Ok(output) => output.status.success(),
@@ -35,7 +36,7 @@ fn get_metadata<R: Fn(&str)>(path: &str, log_fn: R) -> Result<Vec<(String, f64, 
         let file_path = match file {
             Ok(path) => path,
             Err(e) => {
-                log_fn(&format!("Error accessing file: {}", e));
+                log_fn(&format!("[ERROR] Error accessing file: {}", e));
                 continue;
             }
         };
@@ -43,12 +44,12 @@ fn get_metadata<R: Fn(&str)>(path: &str, log_fn: R) -> Result<Vec<(String, f64, 
         let file_name = match file_path.file_name() {
             Some(name) => name.to_string_lossy(),
             None => {
-                log_fn(&format!("Error accessing file name for {:?}", file_path));
+                log_fn(&format!("[ERROR] Error accessing file name for {:?}", file_path));
                 continue;
             }
         };
         if file_name.starts_with(".") {
-            log_fn("Skipping hidden video file as it is likely a Linux or MacOS system file and not a real rush.");
+            log_fn("[SKIP] Skipping hidden video file as it is likely a Linux or MacOS system file and not a real rush.");
             continue;
         }
 
@@ -69,17 +70,17 @@ fn get_metadata<R: Fn(&str)>(path: &str, log_fn: R) -> Result<Vec<(String, f64, 
         let fps_string = match fps_output {
             Ok(output) => String::from_utf8_lossy(&output.stdout).trim().to_string(),
             Err(e) => {
-                log_fn(&format!("Error getting FPS for {}: {}", &file_path_str, e));
+                log_fn(&format!("[ERROR] Error getting FPS for {}: {}", &file_path_str, e));
                 continue;
             }
         };
 
         if fps_string.is_empty() {
-            log_fn(&format!("Empty FPS string for {}", &file_path_str));
+            log_fn(&format!("[ERROR] Empty FPS string for {}", &file_path_str));
             continue;
         }
 
-        log_fn(&format!("FPS String for {}: {}", &file_path_str, &fps_string));
+        log_fn(&format!("[SCAN] FPS String for {}: {}", &file_path_str, &fps_string));
         let fps: f64 = parse_fps(&fps_string)?;
 
         let duration_output = Command::new("ffprobe")
@@ -111,8 +112,8 @@ fn parse_fps(fps_string: &str) -> Result<f64, Box<dyn Error>> {
             Ok(numerator / denominator)
         }
         _ => {
-            println!("Unexpected FPS format: {}", fps_string);
-            Err("Invalid FPS format".into())
+            println!("[ERROR] Unexpected FPS format: {}", fps_string);
+            Err("[ERROR] Invalid FPS format".into())
         }
     }
 }
@@ -144,7 +145,7 @@ fn frame_to_timecode(frame: i64, fps: f64) -> String {
 #[tauri::command]
 fn generate_metadata(folder_path: String, start_timecode: String, output_file: String, app_handle: tauri::AppHandle) -> Result<(), String> {
     if !check_ffprobe() {
-        return Err("FFmpeg is either not installed, or not in your PATH.".into());
+        return Err("[ERROR] FFmpeg is either not installed, or not in your PATH.".into());
     }
 
     let (tx, rx) = mpsc::channel();
@@ -159,9 +160,9 @@ fn generate_metadata(folder_path: String, start_timecode: String, output_file: S
         match get_metadata(&folder_path, log_fn) {
             Ok(metadata) => {
                 let workbook = Workbook::new(&format!("{}/{}.xlsx", folder_path, output_file))
-                    .map_err(|e| format!("Error creating workbook: {}", e)).unwrap();
+                    .map_err(|e| format!("[ERROR] Error creating workbook: {}", e)).unwrap();
                 let mut worksheet = workbook.add_worksheet(None)
-                    .map_err(|e| format!("Error adding worksheet: {}", e)).unwrap();
+                    .map_err(|e| format!("[ERROR] Error adding worksheet: {}", e)).unwrap();
 
                 worksheet.write_string(0, 0, "Director", None).unwrap();
                 worksheet.write_string(0, 1, "Producer", None).unwrap();
@@ -206,11 +207,11 @@ fn generate_metadata(folder_path: String, start_timecode: String, output_file: S
                     }
                 }
 
-                workbook.close().map_err(|e| format!("Error closing workbook: {}", e)).unwrap();
-                tx.send(format!("Output file saved to {}/{}.xlsx", folder_path, output_file)).unwrap();
+                workbook.close().map_err(|e| format!("[ERROR] Error closing workbook: {}", e)).unwrap();
+                tx.send(format!("[SUCCESS] Output file saved to {}/{}.xlsx", folder_path, output_file)).unwrap();
             }
             Err(e) => {
-                tx.send(format!("Error getting metadata: {}", e)).unwrap();
+                tx.send(format!("[ERROR] Error getting metadata: {}", e)).unwrap();
             }
         }
     });
@@ -227,7 +228,7 @@ fn generate_metadata(folder_path: String, start_timecode: String, output_file: S
 
 fn main() {
     Builder::default()
-        .invoke_handler(generate_handler![generate_metadata])
+        .invoke_handler(generate_handler![generate_metadata, check_ffprobe])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
