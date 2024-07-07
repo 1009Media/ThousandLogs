@@ -1,6 +1,6 @@
 [package]
 name = "autotclog-rs"
-version = "3.0.1"
+version = "3.0.2"
 description = "Writing TC logs is tedious and boring, speed up the process with AutoTCLog-RS."
 authors = ["Gabriel Sykes"]
 edition = "2021"
@@ -11,6 +11,7 @@ edition = "2021"
 tauri-build = { version = "1", features = [] }
 
 [dependencies]
+fix-path-env = { git = "https://github.com/tauri-apps/fix-path-env-rs" } # Fixes MacOS bundle PATH issues, DO NOT REMOVE.
 tauri = { version = "1", features = [ "dialog-all", "shell-open"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"

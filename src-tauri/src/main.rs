@@ -1,7 +1,7 @@
-#![cfg_attr(
-    all(not(debug_assertions), target_os = "windows"),
-    windows_subsystem = "windows"
-)]
+#![cfg_attr(                                           // These lines prevent the console from appearing in Windows
+    all(not(debug_assertions), target_os = "windows"), // Do
+    windows_subsystem = "windows"                      // Not
+)]                                                     // Remove
 
 use std::process::Command;
 use std::path::Path;
@@ -13,7 +13,7 @@ use regex::Regex;
 use xlsxwriter::*;
 use tauri::{generate_handler, Builder, Manager};
 
-#[tauri::command]
+#[tauri::command] // Checks if ffprobe is in the PATH
 fn check_ffprobe() -> bool {
     match Command::new("ffprobe").arg("-version").output() {
         Ok(output) => output.status.success(),
@@ -227,6 +227,7 @@ fn generate_metadata(folder_path: String, start_timecode: String, output_file: S
 }
 
 fn main() {
+    let _ = fix_path_env::fix(); // Fixes MacOS bundle PATH issues, DO NOT REMOVE.
     Builder::default()
         .invoke_handler(generate_handler![generate_metadata, check_ffprobe])
         .run(tauri::generate_context!())
