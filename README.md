@@ -32,7 +32,7 @@ Precompiled portable binaries for 64 bit Windows, MacOS on Apple Silicon, and 64
 
 ## Building from source:
 
-If you need the program on a platform not in the releases, such as 32 bit Windows or Intel MacOS, follow these instructions:
+If you need the program on a platform not in the releases, such as 32 bit systems, follow these instructions:
 
 - On the same device that you want to run the program on, install rustup by following the instructions found [here](https://www.rust-lang.org/tools/install).
 - Install git from [here](https://git-scm.com/downloads).
