@@ -1,4 +1,4 @@
-# AutoTCLog-RS
+# AutoTCLog-RS | [GitLab Mirror](https://gitlab.com/1009media/autotclog-rs)
 Writing timecode logs manually is tedious and time consuming. AutoTCLog gets the worst of it done fast so you only have to fill in the easy parts.
 
 This is a Rust port of a program Gabriel Sykes originally wrote in Python, from now on the old Python version is deprecated, and this is the one that will be updated. The old Python code is available [here](https://github.com/sykesgabri/AutoTCLog).
