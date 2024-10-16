@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ThousandLogs</title>
+        <link rel="stylesheet" href="styles.css">
+
+        <!-- Font Awesome 4.7 hosted within the application to ensure offline support. -->
+        <!-- Same goes for Google Fonts Barlow, but that's called from styles.css instead. -->
+        <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+        <div class="main-container">
+                <h1>ThousandLogs</h1>
+                <h2>4.0.0</h2>
+                <div id="warning-message" class="warning-message" style="display: none;">
+                        <h1>ERROR: FFmpeg not detected.</h1>
+                        <p>
+                                FFmpeg is either not installed, or not in your PATH. Please install FFmpeg and/or verify it is in your PATH then restart ThousandLogs to get rid of this error.<br>
+                                ThousandLogs will not work without FFmpeg installed.
+                        </p>
+                </div>
+                <form id="master-input-group">
+                        <label for="rushes-import-path-input">Enter file path to rushes, or click folder button to browse folders:</label>
+                        <div class="rushes-import-path-input-group">
+                                <input type="text" id="rushes-import-path-input" name="rushes-import-path-input" required>
+                                <button type="button" id="rushes-browse-button"><i class="fa fa-folder fa-lg fa-fw"></i></button>
+                        </div>
+                        <br>
+                        <label for="start-timecode-input">Enter timecode that logs will start at. (HH:MM:SS:FF):</label>
+                        <div class="start-timecode-input-group">
+                                <input type="text" id="start-timecode-input" name="start-timecode-input" value="00:00:00:00">
+                        </div>
+                        <br>
+                        <label for="output-log-name-input">Enter output log file name, and select file extension:</label>
+                        <div class="output-log-name-input-group">
+                                <input type="text" id="output-log-name-input" name="output-log-name-input" value="TCLog" required>
+                                <input type="radio" id="output-log-format-xlsx" name="output-log-format" value="XLSX" checked="checked">
+                                <label for="output-log-format-xlsx" class="radio-label">XLSX</label>
+                                <input type="radio" id="output-log-format-csv" name="output-log-format" value="CSV">
+                                <label for="output-log-format-csv" class="radio-label">CSV</label>
+                                <input type="radio" id="output-log-format-both" name="output-log-format" value="Both">
+                                <label for="output-log-format-both" class="radio-label">Both</label>
+                        </div>
+                        <br>
+                        <label for="output-log-save-path-input">Enter file path where output log will be saved, or click folder button to browse folders:</label>
+                        <div class="output-log-save-path-group">
+                                <input type="text" id="output-log-save-path-input" name="output-log-save-path-input" required>
+                                <button type="button" id="output-log-browse-button"><i class="fa fa-folder fa-lg fa-fw"></i></button>
+                        </div>
+                        <br>
+                        <button type="submit" id="submit">Generate TC Log</button>
+                </form>
+                <p>Progress:</p>
+                <div id="progress-box" class="progress-box"></div>
+                <p id="output"></p>
+                <p>Part of the ThousandNine Standard Library - Licensed under the GNU LGPL 2.1<br>
+                <a href="https://github.com/1009Media/ThousandLogs" target="_blank">Click here</a> to view the source code.</p>
+        </div>
+        <script src="main.js"></script>
+</body>
+</html>
