@@ -17,9 +17,9 @@
                 <h1>ThousandLogs</h1>
                 <h2>4.0.0</h2>
                 <div id="warning-message" class="warning-message" style="display: none;">
-                        <h1>ERROR: FFmpeg not detected.</h1>
+                        <h1>ERROR: FFmpeg not installed.</h1>
                         <p>
-                                FFmpeg is either not installed, or not in your PATH. Please install FFmpeg and/or verify it is in your PATH then restart ThousandLogs to get rid of this error.<br>
+                        FFmpeg is not installed. Please <a href="https://rentry.co/due9usd3" target="_blank">install FFmpeg</a> then restart ThousandLogs to get rid of this error.<br>
                                 ThousandLogs will not work without FFmpeg installed.
                         </p>
                 </div>
@@ -30,9 +30,13 @@
                                 <button type="button" id="rushes-browse-button"><i class="fa fa-folder fa-lg fa-fw"></i></button>
                         </div>
                         <br>
-                        <label for="start-timecode-input">Enter timecode that logs will start at. (HH:MM:SS:FF):</label>
+                        <label for="start-timecode-input">Enter timecode that logs will start at, or use source timecode. (HH:MM:SS:FF):</label>
                         <div class="start-timecode-input-group">
                                 <input type="text" id="start-timecode-input" name="start-timecode-input" value="00:00:00:00">
+                                <input type="radio" id="timecode-mode-manualset" name="timecode-mode" value="Use Manually Set Timecode">
+                                <label for="timecode-mode-manualset" class="radio-label">Use Manually Set Timecode</label>
+                                <input type="radio" id="timecode-mode-source" name="timecode-mode" value="Use Source Timecode" checked="checked">
+                                <label for="timecode-mode-source" class="radio-label">Use Source Timecode</label>
                         </div>
                         <br>
                         <label for="output-log-name-input">Enter output log file name, and select file extension:</label>

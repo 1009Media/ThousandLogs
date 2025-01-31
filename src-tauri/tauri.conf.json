@@ -10,7 +10,7 @@
     "withGlobalTauri": true,
     "windows": [
       {
-        "title": "thousandlogs",
+        "title": "ThousandLogs 4.0.0",
         "width": 1000,
         "height": 1000
         
